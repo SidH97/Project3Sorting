@@ -10,33 +10,21 @@ import java.io.File;
  */
 public class BufferPool {
    
-   private List<Buffer> freeBuffers = new LinkedList<Buffer>();
+   private List<Buffer> pool = new LinkedList<Buffer>();
    
-   public BufferPool(File ) {
-      for (int i=0;i<BUFFER_POOL_SIZE; i++) {
-         Buffer buf = new Buffer();
-         freeBuffers.add(buf);
-      }
+   public BufferPool() {
+    
    }
    
-   public synchronized int getNumFreeBuffers() {
-      return freeBuffers.size();
+   // Copy "sz" bytes from "space" to position "pos" in the buffered storage
+   public void insert(byte[] space, int sz, int pos)
+   {
+	   
    }
-   
-   public synchronized Buffer getFreeBuffer() {
-      while (freeBuffers.isEmpty()) {
-         try {
-            wait();
-         }
-         catch (InterruptedException iex) {} // ignored
-      }
-   
-      assert (!freeBuffers.isEmpty());
-      return freeBuffers.remove(0);
-   }
-   
-   public synchronized void returnFreeBuffer(Buffer buf) {
-      freeBuffers.add(buf);      
-      notify(); 
+
+   // Copy "sz" bytes from position "pos" of the buffered storage to "space"
+   public void getbytes(byte[] space, int sz, int pos)
+   {
+	   
    }
 }
