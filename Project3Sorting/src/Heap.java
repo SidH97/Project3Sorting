@@ -49,7 +49,7 @@ class Heap
     }
  
     /** Function to  get index parent of i **/
-    private int parent(int i) 
+    private int getParent(int i) 
     {
         return (i - 1)/2;
     }
@@ -61,7 +61,7 @@ class Heap
     }
  
     /** 
-     * @param x int to be inserted
+     * @param x to be inserted
      * @return if was inserted
      **/
     public boolean insert(int x)
@@ -111,10 +111,10 @@ class Heap
     private void heapifyUp(int childInd)
     {
         int tmp = heap[childInd];    
-        while (childInd > 0 && tmp < heap[parent(childInd)])
+        while (childInd > 0 && tmp < heap[getParent(childInd)])
         {
-            heap[childInd] = heap[ parent(childInd) ];
-            childInd = parent(childInd);
+            heap[childInd] = heap[ getParent(childInd) ];
+            childInd = getParent(childInd);
         }                   
         heap[childInd] = tmp;
     }
