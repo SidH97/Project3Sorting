@@ -69,7 +69,7 @@ class Heap
         if (!isFull( ) ) //not full
         {
         	heap[size++] = x;
-            heapifyUp(size - 1);
+            heapUp(size - 1);
             return true;
         } else {  //full
         	return false;
@@ -99,7 +99,7 @@ class Heap
     		int keyItem = heap[0];
     		heap[0] = heap[size - 1];
             size--;
-            heapifyDown(0);
+            heapDown(0);
             return keyItem;
     	} else {
         	throw new NoSuchElementException("heap empty"); 
@@ -107,20 +107,22 @@ class Heap
         
     }
  
-    /** Function heapifyUp  **/
-    private void heapifyUp(int childInd)
+    /** 
+     * @param the index of the child
+     **/
+    private void heapUp(int childIndex)
     {
-        int tmp = heap[childInd];    
-        while (childInd > 0 && tmp < heap[getParent(childInd)])
+        int hold = heap[childIndex];    
+        while ((childIndex > 0) && (hold < heap[getParent(childIndex)]))
         {
-            heap[childInd] = heap[ getParent(childInd) ];
-            childInd = getParent(childInd);
+            heap[childIndex] = heap[getParent(childIndex)];
+            childIndex = getParent(childIndex);
         }                   
-        heap[childInd] = tmp;
+        heap[childIndex] = hold;
     }
  
     /** Function heapifyDown **/
-    private void heapifyDown(int ind)
+    private void heapDown(int ind)
     {
         int child;
         int tmp = heap[ ind ];
