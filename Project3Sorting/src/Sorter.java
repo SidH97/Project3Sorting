@@ -61,4 +61,8 @@ public class Sorter
 		return ((indexChild-1)/2);
 	}
 	
+	public void heapify()
+	{
+		minHeapify(0);
+	}
 }
