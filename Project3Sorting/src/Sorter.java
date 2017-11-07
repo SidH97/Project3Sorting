@@ -35,6 +35,11 @@ public class Sorter
 		return input;
 	}
 	
+	public void setInputBuffer(byte[] inputBuffer)
+	{
+		input = inputBuffer;
+	}
+	
 	public byte[] getOutputBuffer()
 	{
 		return output;
