@@ -17,12 +17,16 @@ public class Sorter
 	private byte[] heap;
 	private byte[] input;
 	private byte[] output;
+	private int inputIndex;
+	private int outputIndex;
 	
 	Sorter(byte[] inputBuffer, byte[] heapBuffer, byte[] outputBuffer)
 	{
 		input = inputBuffer;
 		heap = heapBuffer;
 		output = outputBuffer;
+		inputIndex = 0;
+		outputIndex = 0;
 	}
 	
 	public byte[] getHeapBuffer()
@@ -38,11 +42,39 @@ public class Sorter
 	public void setInputBuffer(byte[] inputBuffer)
 	{
 		input = inputBuffer;
+		inputIndex = 0;
+	}
+	
+	private byte removeInputBuffer(int index)
+	{
+		inputIndex++;
+		return input[index];
+	}
+	
+	private boolean isInputEmpty()
+	{
+		return inputIndex == 512;
 	}
 	
 	public byte[] getOutputBuffer()
 	{
 		return output;
+	}
+	
+	private void insertOutputBuffer(byte b)
+	{
+		output[outputIndex] = b;
+		outputIndex++;
+		if(outputIndex == 512)
+		{
+			sendOutputBuffer();
+		}
+	}
+	
+	private void sendOutputBuffer()
+	{
+		outputIndex = 0;
+		//to do
 	}
 	
 	private void minHeapify(int index)
@@ -61,8 +93,41 @@ public class Sorter
 		return ((indexChild-1)/2);
 	}
 	
-	public void heapify()
+	private void heapify()
 	{
 		minHeapify(0);
+	}
+	
+	public void replacementSelection()
+	{
+		heapify();
+		while(!isInputEmpty()) 
+		{
+			if(heap.length < 4092)
+			{
+				heap[0] = removeInputBuffer(inputIndex);
+				heapify();
+			} else {
+				insertOutputBuffer(heap[0]);
+				if(isInputEmpty())
+				{
+					//this needs to not return anything if file is empty
+					//and we will run into issues here
+					getNewInput();
+				}
+			}
+		}
+		heapify();
+		int i = 0;
+		while(i < 4092)
+		{
+			insertOutputBuffer(heap[i]);
+			i++;
+		}
+	}
+	
+	public void getNewInput()
+	{
+		//to do
 	}
 }
