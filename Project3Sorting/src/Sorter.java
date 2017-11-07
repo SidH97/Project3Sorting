@@ -14,11 +14,35 @@ import java.util.*;
  */
 public class Sorter
 {
-	private int[] heap;
+	private byte[] heap;
+	private byte[] input;
+	private byte[] output;
+	
+	Sorter(byte[] inputBuffer, byte[] heapBuffer, byte[] outputBuffer)
+	{
+		input = inputBuffer;
+		heap = heapBuffer;
+		output = outputBuffer;
+	}
+	
+	public byte[] getHeapBuffer()
+	{
+		return heap;
+	}
+	
+	public byte[] getInputBuffer()
+	{
+		return input;
+	}
+	
+	public byte[] getOutputBuffer()
+	{
+		return output;
+	}
 	
 	private void minHeapify(int index)
 	{
-		int hold = heap[index];
+		byte hold = heap[index];
 		while ((index > 0)&&(hold < heap[parentIndex(index)]))
 		{
 			heap[index] = heap[parentIndex(index)];
