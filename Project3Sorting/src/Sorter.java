@@ -14,5 +14,22 @@ import java.util.*;
  */
 public class Sorter
 {
+	private int[] heap;
+	
+	private void minHeapify(int index)
+	{
+		int hold = heap[index];
+		while ((index > 0)&&(hold < heap[parentIndex(index)]))
+		{
+			heap[index] = heap[parentIndex(index)];
+			index = parentIndex(index);
+		}
+		heap[index] = hold;
+	}
+	
+	private int parentIndex(int indexChild)
+	{
+		return ((indexChild-1)/2);
+	}
 	
 }
