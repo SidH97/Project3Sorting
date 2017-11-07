@@ -100,9 +100,9 @@ public class Sorter
 	
 	public void replacementSelection()
 	{
-		heapify();
 		while(!isInputEmpty()) 
 		{
+			heapify();
 			if(heap.length < 4092)
 			{
 				heap[0] = removeInputBuffer(inputIndex);
