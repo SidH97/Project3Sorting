@@ -100,24 +100,18 @@ public class Sorter
 	
 	public void replacementSelection()
 	{
-		while(!isInputEmpty()) 
+		while(getNewInput() == false)
 		{
-			heapify();
-			if(heap.length < 4092)
+			while(!isInputEmpty()) 
 			{
-				heap[0] = removeInputBuffer(inputIndex);
 				heapify();
-			} else {
 				insertOutputBuffer(heap[0]);
-				if(isInputEmpty())
-				{
-					//this needs to not return anything if file is empty
-					//and we will run into issues here
-					getNewInput();
-				}
+				heap[0] = removeInputBuffer(inputIndex);
 			}
+			getNewInput()
 		}
 		heapify();
+		
 		int i = 0;
 		while(i < 4092)
 		{
@@ -126,7 +120,7 @@ public class Sorter
 		}
 	}
 	
-	public void getNewInput()
+	public boolean getNewInput()
 	{
 		//to do
 	}
