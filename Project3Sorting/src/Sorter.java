@@ -63,9 +63,10 @@ public class Sorter
 	{
 		for(int i = frontIndex; i >= 0; i--)
 		{
-			heap[511-i] = removeInputBuffer(inputIndex);
+			heap[511-i] = removeInputBuffer(i);
 		}
 		heapify();
+		frontIndex = 0;
 	}
 	
 	private boolean isInputEmpty()
