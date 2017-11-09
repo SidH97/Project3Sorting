@@ -127,9 +127,10 @@ public class Sorter
 				byte temp = removeInputBuffer(inputIndex);
 				if (temp < output[outputIndex - 1])
 				{
-					
-				}
-				heap[0] = 0;
+					insertInputBuffer(temp);
+				} else {
+					heap[0] = temp;
+				}	
 			}
 			getNewInput();
 		}
