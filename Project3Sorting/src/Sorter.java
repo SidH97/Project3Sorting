@@ -108,7 +108,7 @@ public class Sorter
 				insertOutputBuffer(heap[0]);
 				heap[0] = removeInputBuffer(inputIndex);
 			}
-			getNewInput()
+			getNewInput();
 		}
 		heapify();
 		
@@ -122,6 +122,7 @@ public class Sorter
 	
 	public boolean getNewInput()
 	{
+		return false;
 		//to do
 	}
 }
