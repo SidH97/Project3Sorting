@@ -19,6 +19,7 @@ public class Sorter
 	private byte[] output;
 	private int inputIndex;
 	private int outputIndex;
+	private int frontIndex;
 	
 	Sorter(byte[] inputBuffer, byte[] heapBuffer, byte[] outputBuffer)
 	{
@@ -27,6 +28,7 @@ public class Sorter
 		output = outputBuffer;
 		inputIndex = 0;
 		outputIndex = 0;
+		frontIndex = 0;
 	}
 	
 	public byte[] getHeapBuffer()
@@ -49,6 +51,21 @@ public class Sorter
 	{
 		inputIndex++;
 		return input[index];
+	}
+	
+	private void insertInputBuffer(byte b)
+	{
+		input[frontIndex] = b;
+		frontIndex++;
+	}
+	
+	private void cleanInputBuffer()
+	{
+		for(int i = frontIndex; i >= 0; i--)
+		{
+			heap[511-i] = removeInputBuffer(inputIndex);
+		}
+		heapify();
 	}
 	
 	private boolean isInputEmpty()
@@ -74,6 +91,7 @@ public class Sorter
 	private void sendOutputBuffer()
 	{
 		outputIndex = 0;
+		cleanInputBuffer();
 		//to do
 	}
 	
@@ -111,7 +129,7 @@ public class Sorter
 				{
 					
 				}
-				heap[0] = 
+				heap[0] = 0;
 			}
 			getNewInput();
 		}
@@ -127,6 +145,7 @@ public class Sorter
 	
 	public boolean getNewInput()
 	{
+		return false;
 		//to do
 	}
 }
