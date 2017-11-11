@@ -105,7 +105,7 @@ public class Sorter
     {
         outputIndex = 0;
         cleanInputBuffer();
-        // to do
+        // needs to go to a run file
     }
 
     private void minHeapify(int index)
