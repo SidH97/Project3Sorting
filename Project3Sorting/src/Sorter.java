@@ -1,7 +1,11 @@
+
 /**
  * 
  */
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 
 /**
  * This class will sort the parsed data given.
@@ -14,140 +18,148 @@ import java.util.*;
  */
 public class Sorter
 {
-	private byte[] heap;
-	private byte[] input;
-	private byte[] output;
-	private int inputIndex;
-	private int outputIndex;
-	private int frontIndex;
-	
-	Sorter(byte[] inputBuffer, byte[] heapBuffer, byte[] outputBuffer)
-	{
-		input = inputBuffer;
-		heap = heapBuffer;
-		output = outputBuffer;
-		inputIndex = 0;
-		outputIndex = 0;
-		frontIndex = 0;
-	}
-	
-	public byte[] getHeapBuffer()
-	{
-		return heap;
-	}
-	
-	public byte[] getInputBuffer()
-	{
-		return input;
-	}
-	
-	public void setInputBuffer(byte[] inputBuffer)
-	{
-		input = inputBuffer;
-		inputIndex = 0;
-	}
-	
-	private byte removeInputBuffer(int index)
-	{
-		inputIndex++;
-		return input[index];
-	}
-	
-	private void insertInputBuffer(byte b)
-	{
-		input[frontIndex] = b;
-		frontIndex++;
-	}
-	
-	private void cleanInputBuffer()
-	{
-		for(int i = frontIndex; i >= 0; i--)
-		{
-			heap[511-i] = removeInputBuffer(i);
-		}
-		heapify();
-		frontIndex = 0;
-	}
-	
-	private boolean isInputEmpty()
-	{
-		return inputIndex == 512;
-	}
-	
-	public byte[] getOutputBuffer()
-	{
-		return output;
-	}
-	
-	private void insertOutputBuffer(byte b)
-	{
-		output[outputIndex] = b;
-		outputIndex++;
-		if(outputIndex == 512)
-		{
-			sendOutputBuffer();
-		}
-	}
-	
-	private void sendOutputBuffer()
-	{
-		outputIndex = 0;
-		cleanInputBuffer();
-		//to do
-	}
-	
-	private void minHeapify(int index)
-	{
-		byte hold = heap[index];
-		while ((index > 0)&&(hold < heap[parentIndex(index)]))
-		{
-			heap[index] = heap[parentIndex(index)];
-			index = parentIndex(index);
-		}
-		heap[index] = hold;
-	}
-	
-	private int parentIndex(int indexChild)
-	{
-		return ((indexChild-1)/2);
-	}
-	
-	private void heapify()
-	{
-		minHeapify(0);
-	}
-	
-	public void replacementSelection()
-	{
-		while(getNewInput() == false)
-		{
-			while(!isInputEmpty()) 
-			{
-				heapify();
-				insertOutputBuffer(heap[0]);
-				byte temp = removeInputBuffer(inputIndex);
-				if (temp < output[outputIndex - 1])
-				{
-					insertInputBuffer(temp);
-				} else {
-					heap[0] = temp;
-				}	
-			}
-			getNewInput();
-		}
-		heapify();
-		
-		int i = 0;
-		while(i < 4092)
-		{
-			insertOutputBuffer(heap[i]);
-			i++;
-		}
-	}
-	
-	public boolean getNewInput()
-	{
-		return false;
-		//to do
-	}
+    private static final int BUFFBYTES = 4096;
+    private byte[] heap;
+    private byte[] in;
+    private byte[] out;
+    private int inputIndex;
+    private int outputIndex;
+    private int frontIndex;
+    ByteBuffer inBuffer;
+    ByteBuffer outBuffer;
+    ByteBuffer heapBuffer;
+
+    Sorter(String records, String stats) throws FileNotFoundException
+    {
+        RandomAccessFile file = new RandomAccessFile(records, "r");
+        in = new byte[BUFFBYTES];
+        out = new byte[BUFFBYTES];
+        heap = new byte[8 * BUFFBYTES];
+        try
+        {
+            file.read(heap);
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.toString());
+        }
+        inBuffer = ByteBuffer.wrap(in);
+        outBuffer = ByteBuffer.wrap(out);
+        heapBuffer = ByteBuffer.wrap(heap);
+        inputIndex = 0;
+        outputIndex = 0;
+        frontIndex = 0;
+    }
+
+    public void setInputBuffer(byte[] inputBuffer)
+    {
+        in = inputBuffer;
+        inputIndex = 0;
+    }
+
+    private byte removeInputBuffer(int index)
+    {
+        inputIndex++;
+        return in[index];
+    }
+
+    private void insertInputBuffer(byte b)
+    {
+        in[frontIndex] = b;
+        frontIndex++;
+    }
+
+    private void cleanInputBuffer()
+    {
+        for (int i = frontIndex; i >= 0; i--)
+        {
+            heap[511 - i] = removeInputBuffer(i);
+        }
+        heapify();
+        frontIndex = 0;
+    }
+
+    private boolean isInputEmpty()
+    {
+        return inputIndex == 512;
+    }
+
+    public byte[] getOutputBuffer()
+    {
+        return out;
+    }
+
+    private void insertOutputBuffer(byte b)
+    {
+        out[outputIndex] = b;
+        outputIndex++;
+        if (outputIndex == 512)
+        {
+            sendOutputBuffer();
+        }
+    }
+
+    private void sendOutputBuffer()
+    {
+        outputIndex = 0;
+        cleanInputBuffer();
+        // to do
+    }
+
+    private void minHeapify(int index)
+    {
+        byte hold = heap[index];
+        while ((index > 0) && (hold < heap[parentIndex(index)]))
+        {
+            heap[index] = heap[parentIndex(index)];
+            index = parentIndex(index);
+        }
+        heap[index] = hold;
+    }
+
+    private int parentIndex(int indexChild)
+    {
+        return ((indexChild - 1) / 2);
+    }
+
+    private void heapify()
+    {
+        minHeapify(0);
+    }
+
+    public void replacementSelection()
+    {
+        while (getNewInput() == false)
+        {
+            while (!isInputEmpty())
+            {
+                heapify();
+                insertOutputBuffer(heap[0]);
+                byte temp = removeInputBuffer(inputIndex);
+                if (temp < out[outputIndex - 1])
+                {
+                    insertInputBuffer(temp);
+                }
+                else
+                {
+                    heap[0] = temp;
+                }
+            }
+            getNewInput();
+        }
+        heapify();
+
+        int i = 0;
+        while (i < 4092)
+        {
+            insertOutputBuffer(heap[i]);
+            i++;
+        }
+    }
+
+    public boolean getNewInput()
+    {
+        return false;
+        // to do
+    }
 }
