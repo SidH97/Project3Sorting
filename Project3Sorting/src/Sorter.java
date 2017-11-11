@@ -58,36 +58,41 @@ public class Sorter
         frontIndex = 0;
     }
 
-    private byte removeInputBuffer(int index)
+    //this needs to change
+    private long removeInputBuffer(int index)
     {
         inputIndex++;
-        return in[index];
+        return inBuffer.getLong((index * 8));
     }
 
-    private void insertInputBuffer(byte b)
+    //this has been changed
+    private void insertInputBuffer(long l)
     {
-        inBuffer.put(frontIndex, b);
+        inBuffer.putLong((frontIndex * 8), l);
         frontIndex++;
     }
 
+    //this needs to change
     private void cleanInputBuffer()
     {
         for (int i = frontIndex; i >= 0; i--)
         {
-        	heapBuffer.put(511 - i, removeInputBuffer(i));
+        	heapBuffer.putLong(((511 - i) * 8), removeInputBuffer(i));
         }
         heapify();
         frontIndex = 0;
     }
 
+    //this does not need to be changed
     private boolean isInputEmpty()
     {
         return inputIndex == 512;
     }
 
-    private void insertOutputBuffer(byte b)
+    //this has been changed
+    private void insertOutputBuffer(long l)
     {
-        outBuffer.put(outputIndex, b);
+        outBuffer.putLong((outputIndex * 8), l);
         outputIndex++;
         if (outputIndex == 512)
         {
@@ -107,17 +112,28 @@ public class Sorter
         outBuffer.clear();
     }
 
+    //this should be changed to work
     private void minHeapify(int index)
     {
-        byte hold = heapBuffer.get(index);
-        while ((index > 0) && (hold < heapBuffer.get(parentIndex(index))))
+        long hold = heapBuffer.getLong(index);
+        float key = getKey(index);
+        //parent is multiplied by 8 to get actual index
+        while ((index > 0) && (key < getKey(parentIndex(index) * 8)))
         {
-            heapBuffer.put(index, heapBuffer.get(parentIndex(index)));
-            index = parentIndex(index);
+        	heapBuffer.putLong((index * 8), heapBuffer.getLong(parentIndex(index) * 8));
+        	index = parentIndex(index);
         }
-        heapBuffer.put(index, hold);
+        heapBuffer.putLong((index*8), hold);
+    }
+    
+    //gets the 4 bytes of the key
+    private float getKey(int index)
+    {
+    	//adds four to get the second half of record
+    	return heapBuffer.getFloat(index + 4);
     }
 
+    //This is based on the 512 index so this will work
     private int parentIndex(int indexChild)
     {
         return ((indexChild - 1) / 2);
@@ -128,6 +144,16 @@ public class Sorter
         minHeapify(0);
     }
 
+    private float getInputKey(int index)
+    {
+    	return inBuffer.getFloat(index + 4);
+    }
+    
+    private float getOutputKey(int index)
+    {
+    	return outBuffer.getFloat(index+ 4);
+    }
+    
     public void replacementSelection()
     {
         while (fileInCheck != -1)
@@ -135,15 +161,16 @@ public class Sorter
             while (!isInputEmpty())
             {
                 heapify();
-                insertOutputBuffer(heap[0]);
-                byte temp = removeInputBuffer(inputIndex);
-                if (temp < outBuffer.get(outputIndex - 1))
+                insertOutputBuffer(heapBuffer.getLong(0));
+                float key = getInputKey(inputIndex);
+                long hold = removeInputBuffer(inputIndex);
+                if (key < getOutputKey(outputIndex - 1))
                 {
-                    insertInputBuffer(temp);
+                    insertInputBuffer(hold);
                 }
                 else
                 {
-                    heapBuffer.put(0, temp);
+                    heapBuffer.putLong(0, hold);
                 }
             }
             getNewInput();
@@ -152,7 +179,7 @@ public class Sorter
         int i = 0;
         while (i < 4092)
         {
-            insertOutputBuffer(heapBuffer.get(i));
+            insertOutputBuffer(heapBuffer.getLong(i * 8));
             i++;
         }
     }
