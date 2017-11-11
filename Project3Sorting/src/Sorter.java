@@ -25,19 +25,21 @@ public class Sorter
     private int inputIndex;
     private int outputIndex;
     private int frontIndex;
+    private int fileInCheck;
     ByteBuffer inBuffer;
     ByteBuffer outBuffer;
     ByteBuffer heapBuffer;
+    RandomAccessFile file;
 
     Sorter(String records, String stats) throws FileNotFoundException
     {
-        RandomAccessFile file = new RandomAccessFile(records, "r");
+        file = new RandomAccessFile(records, "r");
         in = new byte[BUFFBYTES];
         out = new byte[BUFFBYTES];
         heap = new byte[8 * BUFFBYTES];
         try
         {
-            file.read(heap);
+            fileInCheck = file.read(heap);
         }
         catch (IOException e)
         {
@@ -129,7 +131,7 @@ public class Sorter
 
     public void replacementSelection()
     {
-        while (getNewInput() == false)
+        while (fileInCheck != -1)
         {
             while (!isInputEmpty())
             {
@@ -148,7 +150,6 @@ public class Sorter
             getNewInput();
         }
         heapify();
-
         int i = 0;
         while (i < 4092)
         {
@@ -157,9 +158,15 @@ public class Sorter
         }
     }
 
-    public boolean getNewInput()
+    public void getNewInput()
     {
-        return false;
-        // to do
+    	try 
+    	{
+			fileInCheck = file.read(in);
+		} 
+    	catch (IOException e) 
+    	{
+			System.out.println(e.toString());
+		}
     }
 }
