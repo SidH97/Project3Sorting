@@ -59,12 +59,6 @@ public class Sorter
         frontIndex = 0;
     }
 
-    public void setInputBuffer(byte[] inputBuffer)
-    {
-        in = inputBuffer;
-        inputIndex = 0;
-    }
-
     private byte removeInputBuffer(int index)
     {
         inputIndex++;
@@ -73,7 +67,7 @@ public class Sorter
 
     private void insertInputBuffer(byte b)
     {
-        in[frontIndex] = b;
+        inBuffer.put(frontIndex, b);
         frontIndex++;
     }
 
@@ -81,7 +75,7 @@ public class Sorter
     {
         for (int i = frontIndex; i >= 0; i--)
         {
-            heap[511 - i] = removeInputBuffer(i);
+        	heapBuffer.put(511 - i, removeInputBuffer(i));
         }
         heapify();
         frontIndex = 0;
@@ -92,14 +86,9 @@ public class Sorter
         return inputIndex == 512;
     }
 
-    public byte[] getOutputBuffer()
-    {
-        return out;
-    }
-
     private void insertOutputBuffer(byte b)
     {
-        out[outputIndex] = b;
+        outBuffer.put(outputIndex, b);
         outputIndex++;
         if (outputIndex == 512)
         {
@@ -121,13 +110,13 @@ public class Sorter
 
     private void minHeapify(int index)
     {
-        byte hold = heap[index];
-        while ((index > 0) && (hold < heap[parentIndex(index)]))
+        byte hold = heapBuffer.get(index);
+        while ((index > 0) && (hold < heapBuffer.get(parentIndex(index))))
         {
-            heap[index] = heap[parentIndex(index)];
+            heapBuffer.put(index, heapBuffer.get(parentIndex(index)));
             index = parentIndex(index);
         }
-        heap[index] = hold;
+        heapBuffer.put(index, hold);
     }
 
     private int parentIndex(int indexChild)
@@ -149,13 +138,13 @@ public class Sorter
                 heapify();
                 insertOutputBuffer(heap[0]);
                 byte temp = removeInputBuffer(inputIndex);
-                if (temp < out[outputIndex - 1])
+                if (temp < outBuffer.get(outputIndex - 1))
                 {
                     insertInputBuffer(temp);
                 }
                 else
                 {
-                    heap[0] = temp;
+                    heapBuffer.put(0, temp);
                 }
             }
             getNewInput();
@@ -164,7 +153,7 @@ public class Sorter
         int i = 0;
         while (i < 4092)
         {
-            insertOutputBuffer(heap[i]);
+            insertOutputBuffer(heapBuffer.get(i));
             i++;
         }
     }
@@ -174,6 +163,7 @@ public class Sorter
     	try 
     	{
 			fileInCheck = file.read(in);
+			inBuffer = ByteBuffer.wrap(in);
 		} 
     	catch (IOException e) 
     	{
