@@ -103,7 +103,6 @@ public class Sorter
     private void sendOutputBuffer()
     {
         outputIndex = 0;
-        cleanInputBuffer();
         try {
 			wChannel.write(outBuffer);
 		} catch (IOException e) {
@@ -156,6 +155,7 @@ public class Sorter
     
     public void replacementSelection()
     {
+    	boolean check = true;
         while (fileInCheck != -1)
         {
             while (!isInputEmpty())
@@ -173,9 +173,26 @@ public class Sorter
                     heapBuffer.putLong(0, hold);
                 }
             }
-            getNewInput();
+            if (frontIndex == 0)
+            {
+            	getNewInput();
+            } else {
+            	clearHeap();
+            	cleanInputBuffer();
+            	try {
+					file.read(heap);
+				} catch (IOException e) {
+					System.out.println(e.toString());
+				}
+            }
+            
         }
-        heapify();
+        
+    }
+
+    private void clearHeap()
+    {
+    	heapify();
         int i = 0;
         while (i < 4092)
         {
@@ -183,7 +200,7 @@ public class Sorter
             i++;
         }
     }
-
+    
     private void getNewInput()
     {
     	try 
