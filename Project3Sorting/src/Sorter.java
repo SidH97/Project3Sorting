@@ -42,20 +42,13 @@ public class Sorter
         in = new byte[BUFFBYTES];
         out = new byte[BUFFBYTES];
         heap = new byte[8 * BUFFBYTES]; 
-        try
-        {
-            fileInCheck = file.read(heap);
-        }
-        catch (IOException e)
-        {
-            System.out.println(e.toString());
-        }
         inBuffer = ByteBuffer.wrap(in);
         outBuffer = ByteBuffer.wrap(out);
         heapBuffer = ByteBuffer.wrap(heap);
         inputIndex = 0;
         outputIndex = 0;
         frontIndex = 0;
+        newReplacementSelection();
     }
 
     //this is changed
@@ -153,9 +146,42 @@ public class Sorter
     	return outBuffer.getFloat(index+ 4);
     }
     
+    private boolean getNewHeap()
+    {
+    	try {
+			fileInCheck = file.read(heap);
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		}
+    	if (fileInCheck != -1)
+    	{
+    		heapBuffer = ByteBuffer.wrap(heap);
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+		
+    }
+    
+    private void sendHeap()
+    {
+        try {
+			wChannel.write(heapBuffer);
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		}
+        heapBuffer.clear();
+    }
+    
     public void newReplacementSelection()
     {
-    	
+    	while (getNewHeap())
+    	{
+    		heapify();
+    		sendHeap();
+    	}
     }
     
     public void replacementSelection()
