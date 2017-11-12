@@ -28,13 +28,15 @@ public class Sorter
     private int outputIndex;
     private int frontIndex;
     private int fileInCheck;
+    public int runs = 0;
     ByteBuffer inBuffer;
     ByteBuffer outBuffer;
     ByteBuffer heapBuffer;
     RandomAccessFile file;
     FileChannel wChannel;
 
-    Sorter(String records, String stats) throws FileNotFoundException
+    @SuppressWarnings("resource")
+	Sorter(String records, String stats) throws IOException
     {
     	File runfile = new File("run.txt");
         wChannel = new FileOutputStream(runfile, true).getChannel();
@@ -49,7 +51,9 @@ public class Sorter
         outputIndex = 0;
         frontIndex = 0;
         newReplacementSelection();
-    }
+        mergeSort();
+			wChannel.close();
+		}
 
     //this is changed
     private long removeInputBuffer(int index)
@@ -179,6 +183,7 @@ public class Sorter
     {
     	while (getNewHeap())
     	{
+    		runs++;
     		heapify();
     		sendHeap();
     	}
@@ -186,7 +191,6 @@ public class Sorter
     
     public void replacementSelection()
     {
-    	boolean check = true;
         while (fileInCheck != -1)
         {
             while (!isInputEmpty())
@@ -246,6 +250,21 @@ public class Sorter
     }
     
     private void mergeSort()
+    {
+    	if (runs > 1 && runs <= 8)
+    	{
+    		mergeSortHelper();
+    	}
+    	if (runs > 8 && runs < 16)
+    	{
+    		mergeSortHelper();
+    		mergeSortHelper();
+    		mergeSortHelper();
+    		mergeSortHelper();
+    	}
+    }
+    
+    private void mergeSortHelper()
     {
     	
     }
