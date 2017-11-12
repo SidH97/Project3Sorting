@@ -41,7 +41,7 @@ public class Sorter
         file = new RandomAccessFile(records, "r");
         in = new byte[BUFFBYTES];
         out = new byte[BUFFBYTES];
-        heap = new byte[8 * BUFFBYTES];
+        heap = new byte[8 * BUFFBYTES]; 
         try
         {
             fileInCheck = file.read(heap);
@@ -58,7 +58,7 @@ public class Sorter
         frontIndex = 0;
     }
 
-    //this needs to change
+    //this is changed
     private long removeInputBuffer(int index)
     {
         inputIndex++;
@@ -184,7 +184,7 @@ public class Sorter
         }
     }
 
-    public void getNewInput()
+    private void getNewInput()
     {
     	try 
     	{
