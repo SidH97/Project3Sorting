@@ -127,7 +127,7 @@ public class Sorter
     }
     
     //gets the 4 bytes of the key
-    private float getKey(int index)
+    public float getKey(int index)
     {
     	//adds four to get the second half of record
     	return heapBuffer.getFloat(index + 4);
@@ -144,12 +144,12 @@ public class Sorter
         minHeapify(0);
     }
 
-    private float getInputKey(int index)
+    public float getInputKey(int index)
     {
     	return inBuffer.getFloat(index + 4);
     }
     
-    private float getOutputKey(int index)
+    public float getOutputKey(int index)
     {
     	return outBuffer.getFloat(index+ 4);
     }
