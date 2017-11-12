@@ -153,6 +153,11 @@ public class Sorter
     	return outBuffer.getFloat(index+ 4);
     }
     
+    public void newReplacementSelection()
+    {
+    	
+    }
+    
     public void replacementSelection()
     {
     	boolean check = true;
