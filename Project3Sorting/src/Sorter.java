@@ -103,7 +103,6 @@ public class Sorter
     private void sendOutputBuffer()
     {
         outputIndex = 0;
-        cleanInputBuffer();
         try {
 			wChannel.write(outBuffer);
 		} catch (IOException e) {
@@ -127,7 +126,7 @@ public class Sorter
     }
     
     //gets the 4 bytes of the key
-    private float getKey(int index)
+    public float getKey(int index)
     {
     	//adds four to get the second half of record
     	return heapBuffer.getFloat(index + 4);
@@ -144,18 +143,19 @@ public class Sorter
         minHeapify(0);
     }
 
-    private float getInputKey(int index)
+    public float getInputKey(int index)
     {
     	return inBuffer.getFloat(index + 4);
     }
     
-    private float getOutputKey(int index)
+    public float getOutputKey(int index)
     {
     	return outBuffer.getFloat(index+ 4);
     }
     
     public void replacementSelection()
     {
+    	boolean check = true;
         while (fileInCheck != -1)
         {
             while (!isInputEmpty())
@@ -173,9 +173,26 @@ public class Sorter
                     heapBuffer.putLong(0, hold);
                 }
             }
-            getNewInput();
+            if (frontIndex == 0)
+            {
+            	getNewInput();
+            } else {
+            	clearHeap();
+            	cleanInputBuffer();
+            	try {
+					file.read(heap);
+				} catch (IOException e) {
+					System.out.println(e.toString());
+				}
+            }
+            
         }
-        heapify();
+        
+    }
+
+    private void clearHeap()
+    {
+    	heapify();
         int i = 0;
         while (i < 4092)
         {
@@ -183,7 +200,7 @@ public class Sorter
             i++;
         }
     }
-
+    
     private void getNewInput()
     {
     	try 
