@@ -275,4 +275,173 @@ public class Sorter
     		//
     	}
     }
+    
+    private void merge2(int x1, int x2) 
+    {
+    	int hold = x2;
+    	//long l;
+    	while (x1 < hold) 
+    	{
+    		if (getKey(x1) > getKey(x2)) {
+    			insertOutputBuffer(heapBuffer.getLong(x2));
+    			x2++;
+    		} else if (getKey(x1) < getKey(x2)) {
+    			insertOutputBuffer(heapBuffer.getLong(x1));
+    			x1++;
+    		} else {
+    			insertOutputBuffer(heapBuffer.getLong(x1));
+    			insertOutputBuffer(heapBuffer.getLong(x2));
+    			x1++;
+    			x2++;
+    		}
+    		
+    		if (x1 == hold) {
+    			//needs to get the next input and put it at the beginning (0)
+    		}
+    		if (hold == x2 - hold) {
+    			//needs to get the next input and put it at the beginning (hold)
+    		}
+    	}
+    }
+    
+    private void merge4(int x1, int x2, int x3, int x4)
+    {
+    	int hold2 = x2;
+    	int hold3 = x3;
+    	int hold4 = x4;
+    	while (x1 < hold2)
+    	{
+    		if ((getKey(x1) <= getKey(x2))&&(getKey(x1) <= getKey(x3))&&(getKey(x1) <= getKey(x4)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x1));
+    			x1++;
+    			if (x1 == hold2) {
+    				//needs to get the next input and put it at the beginning (0)
+    			}
+    		}
+    		else if ((getKey(x2) <= getKey(x1))&&(getKey(x2) <= getKey(x3))&&(getKey(x2) <= getKey(x4)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x2));
+    			x2++;
+    			if (x2 == hold3) {
+    				//needs to get the next input and put it at the beginning (hold2)
+    			}
+    		}
+    		else if ((getKey(x3) <= getKey(x1))&&(getKey(x3) <= getKey(x2))&&(getKey(x3) <= getKey(x4)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x3));
+    			x3++;
+    			if (x3 == hold4) {
+    				//needs to get the next input and put it at the beginning (hold3)
+    			}
+    		}
+    		else if ((getKey(x4) <= getKey(x1))&&(getKey(x4) <= getKey(x2))&&(getKey(x4) <= getKey(x3)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x4));
+    			x4++;
+    			if (x4 == (2*hold3) - 1) {  //not 100% sure about this
+    				//needs to get the next input and put it at the beginning (hold4)
+    			}
+    		}
+    	}
+    }
+    
+    private void merge8(int x1, int x2, int x3, int x4, int x5, int x6, int x7, int x8)
+    {
+    	int hold2 = x2;
+    	int hold3 = x3;
+    	int hold4 = x4;
+    	int hold5 = x5;
+    	int hold6 = x6;
+    	int hold7 = x7;
+    	int hold8 = x8;
+    	while (x1 < hold2)
+    	{
+    		if ((getKey(x1) <= getKey(x2))&&(getKey(x1) <= getKey(x3))&&
+    				(getKey(x1) <= getKey(x4))&&(getKey(x1) <= getKey(x5))&&
+    				(getKey(x1) <= getKey(x6))&&(getKey(x1) <= getKey(x7))&&
+    				(getKey(x1) <= getKey(x8)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x1));
+    			x1++;
+    			if (x1 == hold2) {
+    				//needs to get the next input and put it at the beginning (0)
+    			}
+    		}
+    		else if ((getKey(x2) <= getKey(x1))&&(getKey(x2) <= getKey(x3))&&
+    				(getKey(x2) <= getKey(x4))&&(getKey(x2) <= getKey(x5))&&
+    				(getKey(x2) <= getKey(x6))&&(getKey(x2) <= getKey(x7))&&
+    				(getKey(x2) <= getKey(x8)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x2));
+    			x2++;
+    			if (x2 == hold3) {
+    				//needs to get the next input and put it at the beginning (hold2)
+    			}
+    		}
+    		else if ((getKey(x3) <= getKey(x1))&&(getKey(x3) <= getKey(x2))&&
+    				(getKey(x3) <= getKey(x4))&&(getKey(x3) <= getKey(x5))&&
+    				(getKey(x3) <= getKey(x6))&&(getKey(x3) <= getKey(x7))&&
+    				(getKey(x3) <= getKey(x8)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x3));
+    			x3++;
+    			if (x3 == hold4) {
+    				//needs to get the next input and put it at the beginning (hold3)
+    			}
+    		}
+    		else if ((getKey(x4) <= getKey(x1))&&(getKey(x4) <= getKey(x2))&&
+    				(getKey(x4) <= getKey(x3))&&(getKey(x4) <= getKey(x5))&&
+    				(getKey(x4) <= getKey(x6))&&(getKey(x4) <= getKey(x7))&&
+    				(getKey(x4) <= getKey(x8)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x4));
+    			x4++;
+    			if (x4 == hold5) {
+    				//needs to get the next input and put it at the beginning (hold4)
+    			}
+    		}
+    		else if ((getKey(x5) <= getKey(x1))&&(getKey(x5) <= getKey(x2))&&
+    				(getKey(x5) <= getKey(x3))&&(getKey(x5) <= getKey(x4))&&
+    				(getKey(x5) <= getKey(x6))&&(getKey(x5) <= getKey(x7))&&
+    				(getKey(x5) <= getKey(x8)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x5));
+    			x5++;
+    			if (x5 == hold6) {
+    				//needs to get the next input and put it at the beginning (hold5)
+    			}
+    		}
+    		else if ((getKey(x6) <= getKey(x1))&&(getKey(x6) <= getKey(x2))&&
+    				(getKey(x6) <= getKey(x3))&&(getKey(x6) <= getKey(x4))&&
+    				(getKey(x6) <= getKey(x5))&&(getKey(x6) <= getKey(x7))&&
+    				(getKey(x6) <= getKey(x8)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x6));
+    			x6++;
+    			if (x6 == hold7) {
+    				//needs to get the next input and put it at the beginning (hold6)
+    			}
+    		}
+    		else if ((getKey(x7) <= getKey(x1))&&(getKey(x7) <= getKey(x2))&&
+    				(getKey(x7) <= getKey(x3))&&(getKey(x7) <= getKey(x4))&&
+    				(getKey(x7) <= getKey(x5))&&(getKey(x7) <= getKey(x6))&&
+    				(getKey(x7) <= getKey(x8)))
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x7));
+    			x7++;
+    			if (x7 == hold8) {
+    				//needs to get the next input and put it at the beginning (hold7)
+    			}
+    		}
+    		else 
+    		{
+    			insertOutputBuffer(heapBuffer.getLong(x8));
+    			x8++;
+    			if (x8 == hold8 + hold2 - 1) { //not 100% about this
+    				//needs to get the next input and put it at the beginning (hold8)
+    			}
+    		}
+    	}
+    }
 }
