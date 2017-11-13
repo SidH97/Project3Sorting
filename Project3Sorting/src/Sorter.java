@@ -288,7 +288,7 @@ public class Sorter
 		}
     }
     
-    private boolean nextInput(int index, int size)
+    private boolean nextInput(int index, int size, int runNum)
     {
     	return false;
     }
@@ -342,7 +342,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 2048))
+        				if (nextInput(0, 2048, 1))
         				{
         					x1 = 0;
         				}
@@ -361,7 +361,7 @@ public class Sorter
         			x2++;
         			if (x2 == 4096) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 2048))
+        				if(nextInput(hold2, 2048, 2))
         				{
         					x2 = hold2;
         				}
@@ -378,10 +378,10 @@ public class Sorter
     private void merge3(int numRec)
     {
     	int x1 = 0;
-    	int hold2 = 1536;
-    	int x2 = 1536;
-    	int hold3 = 3072;
-        int x3 = 3072;
+    	int hold2 = 1024;
+    	int x2 = 1024;
+    	int hold3 = 2048;
+        int x3 = 2048;
         for(int i = 0; i < numRec; i++)
     	{
     		if (x1 != -1)
@@ -392,7 +392,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 1536))
+        				if (nextInput(0, 1024, 1))
         				{
         					x1 = 0;
         				}
@@ -411,7 +411,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 1536))
+        				if(nextInput(hold2, 1024, 2))
         				{
         					x2 = hold2;
         				}
@@ -429,7 +429,7 @@ public class Sorter
         		x3++;
         		if (x3 == 4096) {
         			//needs to get the next input and put it at the beginning (hold3)
-        			if(nextInput(hold3, 1024))
+        			if(nextInput(hold3, 2048, 3))
         			{
         				x3 = hold3;
         			}
@@ -463,7 +463,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 1024))
+        				if (nextInput(0, 1024, 1))
         				{
         					x1 = 0;
         				}
@@ -483,7 +483,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 1024))
+        				if(nextInput(hold2, 1024, 2))
         				{
         					x2 = hold2;
         				}
@@ -503,7 +503,7 @@ public class Sorter
         			x3++;
         			if (x3 == hold4) {
         				//needs to get the next input and put it at the beginning (hold3)
-        				if(nextInput(hold3, 1024))
+        				if(nextInput(hold3, 1024, 3))
         				{
         					x3 = hold3;
         				}
@@ -520,7 +520,7 @@ public class Sorter
         		x4++;
         		if (x4 == 4096) {
         			//needs to get the next input and put it at the beginning (hold4)
-        			if(nextInput(hold4, 512))
+        			if(nextInput(hold4, 512, 4))
         		    {
         				x4 = hold4;
         			}
@@ -555,7 +555,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 1024))
+        				if (nextInput(0, 1024, 1))
         				{
         					x1 = 0;
         				}
@@ -575,7 +575,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 1024))
+        				if(nextInput(hold2, 1024, 2))
         				{
         					x2 = hold2;
         				}
@@ -595,7 +595,7 @@ public class Sorter
         			x3++;
         			if (x3 == hold4) {
         				//needs to get the next input and put it at the beginning (hold3)
-        				if(nextInput(hold3, 1024))
+        				if(nextInput(hold3, 1024, 3))
         				{
         					x3 = hold3;
         				}
@@ -615,7 +615,7 @@ public class Sorter
         			x4++;
         			if (x4 == hold5) {
         				//needs to get the next input and put it at the beginning (hold4)
-        				if(nextInput(hold4, 512))
+        				if(nextInput(hold4, 512, 4))
         				{
         					x4 = hold4;
         				}
@@ -632,7 +632,7 @@ public class Sorter
     			x5++;
         		if (x5 == 4096) {
         		//needs to get the next input and put it at the beginning (hold5)
-        			if(nextInput(hold5, 512))
+        			if(nextInput(hold5, 512, 5))
         			{
         				x5 = hold5;
         			}
@@ -671,7 +671,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 1024))
+        				if (nextInput(0, 1024, 1))
         				{
         					x1 = 0;
         				}
@@ -692,7 +692,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 1024))
+        				if(nextInput(hold2, 1024, 2))
         				{
         					x2 = hold2;
         				}
@@ -713,7 +713,7 @@ public class Sorter
         			x3++;
         			if (x3 == hold4) {
         				//needs to get the next input and put it at the beginning (hold3)
-        				if(nextInput(hold3, 512))
+        				if(nextInput(hold3, 512, 3))
         				{
         					x3 = hold3;
         				}
@@ -734,7 +734,7 @@ public class Sorter
         			x4++;
         			if (x4 == hold5) {
         				//needs to get the next input and put it at the beginning (hold4)
-        				if(nextInput(hold4, 512))
+        				if(nextInput(hold4, 512, 4))
         				{
         					x4 = hold4;
         				}
@@ -755,7 +755,7 @@ public class Sorter
         			x5++;
         			if (x5 == hold6) {
         				//needs to get the next input and put it at the beginning (hold5)
-        				if(nextInput(hold5, 512))
+        				if(nextInput(hold5, 512, 5))
         				{
         					x5 = hold5;
         				}
@@ -772,7 +772,7 @@ public class Sorter
         		x6++;
         		if (x6 == 4096) {
         				//needs to get the next input and put it at the beginning (hold6)
-        			if(nextInput(hold6, 512))
+        			if(nextInput(hold6, 512, 6))
         			{
         				x6 = hold6;
         			}
@@ -813,7 +813,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 512))
+        				if (nextInput(0, 512, 1))
         				{
         					x1 = 0;
         				}
@@ -834,7 +834,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 512))
+        				if(nextInput(hold2, 512, 2))
         				{
         					x2 = hold2;
         				}
@@ -855,7 +855,7 @@ public class Sorter
         			x3++;
         			if (x3 == hold4) {
         				//needs to get the next input and put it at the beginning (hold3)
-        				if(nextInput(hold3, 512))
+        				if(nextInput(hold3, 512, 3))
         				{
         					x3 = hold3;
         				}
@@ -876,7 +876,7 @@ public class Sorter
         			x4++;
         			if (x4 == hold5) {
         				//needs to get the next input and put it at the beginning (hold4)
-        				if(nextInput(hold4, 512))
+        				if(nextInput(hold4, 512, 4))
         				{
         					x4 = hold4;
         				}
@@ -897,7 +897,7 @@ public class Sorter
         			x5++;
         			if (x5 == hold6) {
         				//needs to get the next input and put it at the beginning (hold5)
-        				if(nextInput(hold5, 512))
+        				if(nextInput(hold5, 512, 5))
         				{
         					x5 = hold5;
         				}
@@ -918,7 +918,7 @@ public class Sorter
         			x6++;
         			if (x6 == hold7) {
         				//needs to get the next input and put it at the beginning (hold6)
-        				if(nextInput(hold6, 512))
+        				if(nextInput(hold6, 512, 6))
         				{
         					x6 = hold6;
         				}
@@ -939,7 +939,7 @@ public class Sorter
         			x7++;
         			if (x7 == 4096) {
         				//needs to get the next input and put it at the beginning (hold7)
-        				if(nextInput(hold7, 1024))
+        				if(nextInput(hold7, 1024, 7))
         				{
         					x7 = hold7;
         				}
@@ -985,7 +985,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 512))
+        				if (nextInput(0, 512, 1))
         				{
         					x1 = 0;
         				}
@@ -1007,7 +1007,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 512))
+        				if(nextInput(hold2, 512, 2))
         				{
         					x2 = hold2;
         				}
@@ -1029,7 +1029,7 @@ public class Sorter
         			x3++;
         			if (x3 == hold4) {
         				//needs to get the next input and put it at the beginning (hold3)
-        				if(nextInput(hold3, 512))
+        				if(nextInput(hold3, 512, 3))
         				{
         					x3 = hold3;
         				}
@@ -1051,7 +1051,7 @@ public class Sorter
         			x4++;
         			if (x4 == hold5) {
         				//needs to get the next input and put it at the beginning (hold4)
-        				if(nextInput(hold4, 512))
+        				if(nextInput(hold4, 512, 4))
         				{
         					x4 = hold4;
         				}
@@ -1073,7 +1073,7 @@ public class Sorter
         			x5++;
         			if (x5 == hold6) {
         				//needs to get the next input and put it at the beginning (hold5)
-        				if(nextInput(hold5, 512))
+        				if(nextInput(hold5, 512, 5))
         				{
         					x5 = hold5;
         				}
@@ -1095,7 +1095,7 @@ public class Sorter
         			x6++;
         			if (x6 == hold7) {
         				//needs to get the next input and put it at the beginning (hold6)
-        				if(nextInput(hold6, 512))
+        				if(nextInput(hold6, 512, 6))
         				{
         					x6 = hold6;
         				}
@@ -1117,7 +1117,7 @@ public class Sorter
         			x7++;
         			if (x7 == hold8) {
         				//needs to get the next input and put it at the beginning (hold7)
-        				if(nextInput(hold7, 512))
+        				if(nextInput(hold7, 512, 7))
         				{
         					x7 = hold7;
         				}
@@ -1134,7 +1134,7 @@ public class Sorter
     			x8++;
     			if (x8 == hold8 + hold2 - 1) { //not 100% about this
     				//needs to get the next input and put it at the beginning (hold8)
-    				if(nextInput(hold8, 512))
+    				if(nextInput(hold8, 512, 8))
     				{
     					x8 = hold8;
     				}
