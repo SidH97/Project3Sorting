@@ -29,6 +29,7 @@ public class Sorter
     private int frontIndex;
     private int fileInCheck;
     private int run;
+    private int ct = 0;
     ByteBuffer inBuffer;
     ByteBuffer outBuffer;
     ByteBuffer heapBuffer;
@@ -52,6 +53,7 @@ public class Sorter
         frontIndex = 0;
         newReplacementSelection();
         mergeSort();
+        sysOut();
 			wChannel.close();
 		}
 
@@ -179,6 +181,37 @@ public class Sorter
         heapBuffer.clear();
     }
     
+    private void sysOut() throws IOException
+    {
+		RandomAccessFile tempFile = new RandomAccessFile("records.txt", "r");
+    	for (int i = 0; i < run; i++)
+    	{
+    		heapBuffer.clear();
+    		tempFile.read(heap);
+    		heapBuffer = ByteBuffer.wrap(heap);
+    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    		sendToSysOut(heapBuffer.getInt(4096), getKey(4096));
+    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    	}
+    	tempFile.close();
+    	
+    }
+    
+    private void sendToSysOut(int recordId, float key)
+    {
+    	if ((ct != 0) && (ct % 5 == 0))
+    	{
+    		System.out.println();
+    	}
+    	System.out.print(recordId + " " + key);
+    	ct++;
+    }
+    
     public void newReplacementSelection()
     {
     	run = 0;
@@ -226,6 +259,7 @@ public class Sorter
         
     }
 
+    
     private void clearHeap()
     {
     	heapify();
