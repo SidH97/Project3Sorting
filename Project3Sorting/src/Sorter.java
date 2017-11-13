@@ -195,12 +195,12 @@ public class Sorter
     		heapBuffer = ByteBuffer.wrap(heap);
     		sendToSysOut(heapBuffer.getInt(0), getKey(0));
     		sendToSysOut(heapBuffer.getInt(4096), getKey(4096));
-    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
-    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
-    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
-    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
-    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
-    		sendToSysOut(heapBuffer.getInt(0), getKey(0));
+    		sendToSysOut(heapBuffer.getInt(8192), getKey(8192));
+    		sendToSysOut(heapBuffer.getInt(12288), getKey(12288));
+    		sendToSysOut(heapBuffer.getInt(16384), getKey(16384));
+    		sendToSysOut(heapBuffer.getInt(20480), getKey(20480));
+    		sendToSysOut(heapBuffer.getInt(24576), getKey(24576));
+    		sendToSysOut(heapBuffer.getInt(28672), getKey(28672));
     	}
     	tempFile.close();
     	
