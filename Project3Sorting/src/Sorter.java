@@ -248,6 +248,11 @@ public class Sorter
 		}
     }
     
+    private boolean nextInput(int index, int size)
+    {
+    	return false;
+    }
+    
     public void mergeSort()
     {
     	if (run == 1) {
@@ -276,11 +281,12 @@ public class Sorter
     	}
     }
     
-    private void merge2(int x1, int x2) 
+    private void merge2() 
     {
-    	int hold = x2;
-    	//long l;
-    	while (x1 < hold) 
+    	int x1 = 0;
+    	int hold = 2048;
+    	int x2 = 2048;
+    	while (x1 < hold) //this will not work
     	{
     		if (getKey(x1) > getKey(x2)) {
     			insertOutputBuffer(heapBuffer.getLong(x2));
@@ -297,19 +303,31 @@ public class Sorter
     		
     		if (x1 == hold) {
     			//needs to get the next input and put it at the beginning (0)
+    			if(nextInput(0, 2048))
+    			{
+    				x1 = 0;
+    			}
     		}
     		if (hold == x2 - hold) {
     			//needs to get the next input and put it at the beginning (hold)
+    			if(nextInput(hold, 2048))
+    			{
+    				x2 = hold;
+    			}
     		}
     	}
     }
     
-    private void merge4(int x1, int x2, int x3, int x4)
+    private void merge4()
     {
-    	int hold2 = x2;
-    	int hold3 = x3;
-    	int hold4 = x4;
-    	while (x1 < hold2)
+    	int x1 = 0;
+    	int hold2 = 1024;
+    	int x2 = 1024;
+    	int hold3 = 2048;
+        int x3 = 2048;
+    	int hold4 = 3072;
+        int x4 = 3072;
+    	while (x1 < hold2)  //this is wrong
     	{
     		if ((getKey(x1) <= getKey(x2))&&(getKey(x1) <= getKey(x3))&&(getKey(x1) <= getKey(x4)))
     		{
@@ -317,6 +335,10 @@ public class Sorter
     			x1++;
     			if (x1 == hold2) {
     				//needs to get the next input and put it at the beginning (0)
+    				if(nextInput(0, 1024))
+    				{
+    					x1 = 0;
+    				}
     			}
     		}
     		else if ((getKey(x2) <= getKey(x1))&&(getKey(x2) <= getKey(x3))&&(getKey(x2) <= getKey(x4)))
@@ -325,6 +347,10 @@ public class Sorter
     			x2++;
     			if (x2 == hold3) {
     				//needs to get the next input and put it at the beginning (hold2)
+    				if(nextInput(hold2, 1024))
+    				{
+    					x2 = hold2;
+    				}
     			}
     		}
     		else if ((getKey(x3) <= getKey(x1))&&(getKey(x3) <= getKey(x2))&&(getKey(x3) <= getKey(x4)))
@@ -333,29 +359,45 @@ public class Sorter
     			x3++;
     			if (x3 == hold4) {
     				//needs to get the next input and put it at the beginning (hold3)
+    				if(nextInput(hold3, 1024))
+    				{
+    					x3 = hold3;
+    				}
     			}
     		}
-    		else if ((getKey(x4) <= getKey(x1))&&(getKey(x4) <= getKey(x2))&&(getKey(x4) <= getKey(x3)))
+    		else
     		{
     			insertOutputBuffer(heapBuffer.getLong(x4));
     			x4++;
-    			if (x4 == (2*hold3) - 1) {  //not 100% sure about this
+    			if (x4 == 4095) {  //not 100% sure about this
     				//needs to get the next input and put it at the beginning (hold4)
+    				if(nextInput(hold4, 1024))
+    				{
+    					x4 = hold4;
+    				}
     			}
     		}
     	}
     }
     
-    private void merge8(int x1, int x2, int x3, int x4, int x5, int x6, int x7, int x8)
+    private void merge8()
     {
-    	int hold2 = x2;
-    	int hold3 = x3;
-    	int hold4 = x4;
-    	int hold5 = x5;
-    	int hold6 = x6;
-    	int hold7 = x7;
-    	int hold8 = x8;
-    	while (x1 < hold2)
+    	int x1 = 0;
+    	int hold2 = 512;
+    	int x2 = 512;
+    	int hold3 = 1024;
+    	int x3 = 1024;
+    	int hold4 = 1536;
+    	int x4 = 1536;
+    	int hold5 = 2048;
+    	int x5 = 2048;
+    	int hold6 = 2560;
+    	int x6 = 2560;
+    	int hold7 = 3072;
+    	int x7 = 3072;
+    	int hold8 = 3584;
+    	int x8 = 3584;
+    	while (x1 < hold2)  //this is wrong
     	{
     		if ((getKey(x1) <= getKey(x2))&&(getKey(x1) <= getKey(x3))&&
     				(getKey(x1) <= getKey(x4))&&(getKey(x1) <= getKey(x5))&&
@@ -366,6 +408,10 @@ public class Sorter
     			x1++;
     			if (x1 == hold2) {
     				//needs to get the next input and put it at the beginning (0)
+    				if (nextInput(0, 512))
+    				{
+    					x1 = 0;
+    				}
     			}
     		}
     		else if ((getKey(x2) <= getKey(x1))&&(getKey(x2) <= getKey(x3))&&
@@ -377,6 +423,10 @@ public class Sorter
     			x2++;
     			if (x2 == hold3) {
     				//needs to get the next input and put it at the beginning (hold2)
+    				if(nextInput(hold2, 512))
+    				{
+    					x2 = hold2;
+    				}
     			}
     		}
     		else if ((getKey(x3) <= getKey(x1))&&(getKey(x3) <= getKey(x2))&&
@@ -388,6 +438,10 @@ public class Sorter
     			x3++;
     			if (x3 == hold4) {
     				//needs to get the next input and put it at the beginning (hold3)
+    				if(nextInput(hold3, 512))
+    				{
+    					x3 = hold3;
+    				}
     			}
     		}
     		else if ((getKey(x4) <= getKey(x1))&&(getKey(x4) <= getKey(x2))&&
@@ -399,6 +453,10 @@ public class Sorter
     			x4++;
     			if (x4 == hold5) {
     				//needs to get the next input and put it at the beginning (hold4)
+    				if(nextInput(hold4, 512))
+    				{
+    					x4 = hold4;
+    				}
     			}
     		}
     		else if ((getKey(x5) <= getKey(x1))&&(getKey(x5) <= getKey(x2))&&
@@ -410,6 +468,10 @@ public class Sorter
     			x5++;
     			if (x5 == hold6) {
     				//needs to get the next input and put it at the beginning (hold5)
+    				if(nextInput(hold5, 512))
+    				{
+    					x5 = hold5;
+    				}
     			}
     		}
     		else if ((getKey(x6) <= getKey(x1))&&(getKey(x6) <= getKey(x2))&&
@@ -421,6 +483,10 @@ public class Sorter
     			x6++;
     			if (x6 == hold7) {
     				//needs to get the next input and put it at the beginning (hold6)
+    				if(nextInput(hold6, 512))
+    				{
+    					x6 = hold6;
+    				}
     			}
     		}
     		else if ((getKey(x7) <= getKey(x1))&&(getKey(x7) <= getKey(x2))&&
@@ -432,6 +498,10 @@ public class Sorter
     			x7++;
     			if (x7 == hold8) {
     				//needs to get the next input and put it at the beginning (hold7)
+    				if(nextInput(hold7, 512))
+    				{
+    					x7 = hold7;
+    				}
     			}
     		}
     		else 
@@ -440,6 +510,10 @@ public class Sorter
     			x8++;
     			if (x8 == hold8 + hold2 - 1) { //not 100% about this
     				//needs to get the next input and put it at the beginning (hold8)
+    				if(nextInput(hold8, 512))
+    				{
+    					x8 = hold8;
+    				}
     			}
     		}
     	}
