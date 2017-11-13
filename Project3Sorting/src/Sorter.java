@@ -272,13 +272,16 @@ public class Sorter
     		merge4(run * 4096);
     	}
     	else if (run == 5) {
-    		// shit
+    		//load into heapBuffer
+    		merge5(run * 4096);
     	}
     	else if (run == 6) {
-    		//crap
+    		//load into heapBuffer
+    		merge6(run * 4096);
     	}
     	else if (run == 7) {
-    		//poop
+    		//load into heapBuffer
+    		merge7(run * 4096);
     	}
     	else if (run == 8) {
     		//load into merge8
