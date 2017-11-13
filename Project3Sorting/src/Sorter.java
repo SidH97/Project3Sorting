@@ -28,6 +28,7 @@ public class Sorter
     private int outputIndex;
     private int frontIndex;
     private int fileInCheck;
+    private int run;
     ByteBuffer inBuffer;
     ByteBuffer outBuffer;
     ByteBuffer heapBuffer;
@@ -119,7 +120,7 @@ public class Sorter
     }
     
     //gets the 4 bytes of the key
-    public float getKey(int index)
+    private float getKey(int index)
     {
     	//adds four to get the second half of record
     	return heapBuffer.getFloat(index + 4);
@@ -136,12 +137,12 @@ public class Sorter
         minHeapify(0);
     }
 
-    public float getInputKey(int index)
+    private float getInputKey(int index)
     {
     	return inBuffer.getFloat(index + 4);
     }
     
-    public float getOutputKey(int index)
+    private float getOutputKey(int index)
     {
     	return outBuffer.getFloat(index+ 4);
     }
@@ -177,10 +178,12 @@ public class Sorter
     
     public void newReplacementSelection()
     {
+    	run = 0;
     	while (getNewHeap())
     	{
     		heapify();
     		sendHeap();
+    		run++;
     	}
     }
     
@@ -245,8 +248,31 @@ public class Sorter
 		}
     }
     
-    private void mergeSort()
+    public void mergeSort()
     {
-    	
+    	if (run == 1) {
+    		return;
+    	}
+    	else if (run == 2) {
+    		//well shit
+    	}
+    	else if (run == 3) {
+    		//shit
+    	}
+    	else if (run == 4) {
+    		// fuck
+    	}
+    	else if (run == 5) {
+    		// shit
+    	}
+    	else if (run == 6) {
+    		//crap
+    	}
+    	else if (run == 7) {
+    		//poop
+    	}
+    	else if (run == 8) {
+    		//
+    	}
     }
 }
