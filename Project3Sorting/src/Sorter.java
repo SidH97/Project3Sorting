@@ -378,10 +378,10 @@ public class Sorter
     private void merge3(int numRec)
     {
     	int x1 = 0;
-    	int hold2 = 1536;
-    	int x2 = 1536;
-    	int hold3 = 3072;
-        int x3 = 3072;
+    	int hold2 = 1024;
+    	int x2 = 1024;
+    	int hold3 = 2048;
+        int x3 = 2048;
         for(int i = 0; i < numRec; i++)
     	{
     		if (x1 != -1)
@@ -392,7 +392,7 @@ public class Sorter
         			x1++;
         			if (x1 == hold2) {
         				//needs to get the next input and put it at the beginning (0)
-        				if (nextInput(0, 1536, 1))
+        				if (nextInput(0, 1024, 1))
         				{
         					x1 = 0;
         				}
@@ -411,7 +411,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 1536, 2))
+        				if(nextInput(hold2, 1024, 2))
         				{
         					x2 = hold2;
         				}
@@ -429,7 +429,7 @@ public class Sorter
         		x3++;
         		if (x3 == 4096) {
         			//needs to get the next input and put it at the beginning (hold3)
-        			if(nextInput(hold3, 1024, 3))
+        			if(nextInput(hold3, 2048, 3))
         			{
         				x3 = hold3;
         			}
