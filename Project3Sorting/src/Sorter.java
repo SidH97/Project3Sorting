@@ -39,8 +39,8 @@ public class Sorter
     @SuppressWarnings("resource")
 	Sorter(String records, String stats) throws IOException
     {
-    	File runfile = new File("run.txt");
-        wChannel = new FileOutputStream(runfile, true).getChannel();
+    	File runFile = new File("run.txt");
+        wChannel = new FileOutputStream(runFile, true).getChannel();
         file = new RandomAccessFile(records, "r");
         in = new byte[BUFFBYTES];
         out = new byte[BUFFBYTES];
@@ -52,6 +52,10 @@ public class Sorter
         outputIndex = 0;
         frontIndex = 0;
         newReplacementSelection();
+        runFile = new File(records);
+        runFile.delete();
+        runFile = new File(records);
+        wChannel = new FileOutputStream(runFile, true).getChannel();
         mergeSort();
         sysOut();
 			wChannel.close();
@@ -299,7 +303,7 @@ public class Sorter
     		merge2(run * 4096);
     	}
     	else if (run == 3) {
-    		//shit
+    		merge3(run * 4096);
     	}
     	else if (run == 4) {
     		//load into merge4
