@@ -57,7 +57,7 @@ public class Sorter
         runFile = new File(records);
         wChannel = new FileOutputStream(runFile, true).getChannel();
         mergeSort();
-        sysOut();
+        sysOut(records);
 			wChannel.close();
 		}
 
@@ -185,9 +185,9 @@ public class Sorter
         heapBuffer.clear();
     }
     
-    private void sysOut() throws IOException
+    private void sysOut(String file) throws IOException
     {
-		RandomAccessFile tempFile = new RandomAccessFile("records.txt", "r");
+		RandomAccessFile tempFile = new RandomAccessFile(file, "r");
     	for (int i = 0; i < run; i++)
     	{
     		heapBuffer.clear();
