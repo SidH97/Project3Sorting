@@ -35,7 +35,8 @@ public class Sorter
     RandomAccessFile file;
     FileChannel wChannel;
 
-    Sorter(String records, String stats) throws FileNotFoundException
+    @SuppressWarnings("resource")
+	Sorter(String records, String stats) throws IOException
     {
     	File runfile = new File("run.txt");
         wChannel = new FileOutputStream(runfile, true).getChannel();
@@ -50,7 +51,9 @@ public class Sorter
         outputIndex = 0;
         frontIndex = 0;
         newReplacementSelection();
-    }
+        mergeSort();
+			wChannel.close();
+		}
 
     //this is changed
     private long removeInputBuffer(int index)
@@ -189,7 +192,6 @@ public class Sorter
     
     public void replacementSelection()
     {
-    	boolean check = true;
         while (fileInCheck != -1)
         {
             while (!isInputEmpty())
@@ -517,5 +519,6 @@ public class Sorter
     			}
     		}
     	}
+
     }
 }
