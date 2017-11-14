@@ -5,7 +5,7 @@ import java.io.IOException;
  * @author Sid97
  * @version 11/13
  */
-public class heapsort
+public class Heapsort
 {
      /**
      * main class
@@ -15,7 +15,7 @@ public class heapsort
     {
         try
         {
-            Sorter sorter = new Sorter(args[0], args[1]);
+            new Sorter(args[0], args[1]);
         }
         catch (IOException e)
         {
