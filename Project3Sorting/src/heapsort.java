@@ -1,8 +1,15 @@
 import java.io.IOException;
-
+/**
+ * this is our main class
+ * @author Matthew Evans
+ * @author Sid97
+ */
 public class heapsort
 {
-
+	/**
+	 * main class
+	 * @param args should be two
+	 */
     public static void main(String[] args)
     {
         try
