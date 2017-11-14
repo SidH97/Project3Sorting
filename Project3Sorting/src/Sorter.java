@@ -446,14 +446,7 @@ public class Sorter
             newFile.seek(spot);
             int test = newFile.read(heap, index, size);
             newFile.close();
-            if (test == -1)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return (test == -1);
         }
         catch (IOException e)
         {
@@ -472,7 +465,8 @@ public class Sorter
      */
     public int setRun(int inNum)
     {
-        return run = inNum;
+        run = inNum;
+        return run;
     }
 
     /**
