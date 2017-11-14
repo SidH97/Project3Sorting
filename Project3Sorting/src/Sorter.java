@@ -294,11 +294,9 @@ public class Sorter
     	try 
     	{
         	RandomAccessFile newFile = new RandomAccessFile("run.txt", "r");
-    		index = index + (runNum * 4096);
-    		long spot = (((runNum * 32768) - 32768) + ((depth * 512) - 512));
+    		long spot = size * depth;
     		newFile.seek(spot);
 			test = newFile.read(heap, index, size);
-			inBuffer = ByteBuffer.wrap(in);
 			if (test == -1)
 			{
 				return false;
@@ -362,7 +360,7 @@ public class Sorter
     	else if (run == 8) {
     		//load into merge8
     		nextInput(0, 512, 1, 0);
-    		nextInput(512, 512, 2, 0;);
+    		nextInput(512, 512, 2, 0);
     		nextInput(1024, 512, 3, 0);
     		nextInput(1536, 512, 4, 0);
     		nextInput(2048, 512, 5, 0);
@@ -774,7 +772,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 1024, 2, dpeth2))
+        				if(nextInput(hold2, 1024, 2, depth2))
         				{
         					x2 = hold2;
         					depth2++;
