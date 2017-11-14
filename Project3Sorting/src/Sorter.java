@@ -320,7 +320,7 @@ public class Sorter
     public int replacementSelection()
     {
     	int i = 0;
-        while (i != 0)
+        while (i != 1)
         {
             while (!isInputEmpty())
             {

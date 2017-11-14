@@ -20,6 +20,7 @@ public class SorterTest extends TestCase{
 	{
 		Sorter sorty = new Sorter("8block", "statistics.txt");
 		assertNotNull(sorty);
+		assertEquals(1, sorty.replacementSelection());
 	}
 
 }
