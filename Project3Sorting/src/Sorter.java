@@ -25,19 +25,17 @@ public class Sorter
     private static final int BUFFBYTES = 4096;
     private byte[] heap;
     private byte[] in;
-    private byte[] out;
     private int inputIndex;
     private int outputIndex;
     private int frontIndex;
     private int fileInCheck;
     private int run;
-    private int test = 0;
     private int ct = 0;
-    ByteBuffer inBuffer;
-    ByteBuffer outBuffer;
-    ByteBuffer heapBuffer;
-    RandomAccessFile file;
-    FileChannel wChannel;
+    private ByteBuffer inBuffer;
+    private ByteBuffer outBuffer;
+    private ByteBuffer heapBuffer;
+    private RandomAccessFile file;
+    private FileChannel wChannel;
 
     /**
      * Constructor
@@ -55,7 +53,7 @@ public class Sorter
         wChannel = new FileOutputStream(runFile, true).getChannel();
         file = new RandomAccessFile(records, "r");
         in = new byte[BUFFBYTES];
-        out = new byte[BUFFBYTES];
+        byte[] out = new byte[BUFFBYTES];
         heap = new byte[8 * BUFFBYTES];
         inBuffer = ByteBuffer.wrap(in);
         outBuffer = ByteBuffer.wrap(out);
@@ -295,9 +293,9 @@ public class Sorter
      * @throws IOException
      *             well it does
      */
-    private void sysOut(String file) throws IOException
+    private void sysOut(String fileInny) throws IOException
     {
-        RandomAccessFile tempFile = new RandomAccessFile(file, "r");
+        RandomAccessFile tempFile = new RandomAccessFile(fileInny, "r");
         for (int i = 0; i < run; i++)
         {
             heapBuffer.clear();
@@ -446,7 +444,8 @@ public class Sorter
             RandomAccessFile newFile = new RandomAccessFile("run.txt", "r");
             long spot = size * depth;
             newFile.seek(spot);
-            test = newFile.read(heap, index, size);
+            int test = newFile.read(heap, index, size);
+            newFile.close();
             if (test == -1)
             {
                 return false;
