@@ -2,19 +2,18 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
-/**
+/**Test class for sorter
  * 
- */
-
-/**
- * @author sidhingorani
+ * @author sid97
+ * @author matce93
+ * @version 2017.11.13
  *
  */
 public class SorterTest extends TestCase
 {
     public void setUp()
     {
-        // purposly lefty blsnk
+        // Purposely left blank
     }
 
     public void testReplacementSelection() throws IOException
