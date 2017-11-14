@@ -213,7 +213,7 @@ public class Sorter
     	{
     		System.out.println();
     	}
-    	System.out.print(recordId + " " + key);
+    	System.out.print(recordId + " " + key + " ");
     	ct++;
     }
     
