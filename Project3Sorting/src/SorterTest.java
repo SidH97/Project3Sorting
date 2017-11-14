@@ -48,5 +48,28 @@ public class SorterTest extends TestCase
         sorty.mergeSort();
         assertNotNull(sorty);
     }
+    
+    public void testParentInde() throws IOException
+    {
+    	Sorter sorty = new Sorter("8block", "statistics.txt");
+    	assertEquals(1,sorty.parentIndex(3));
+    }
 
+    public void testGetKey() throws IOException
+    {
+    	Sorter sorty = new Sorter("8block", "statistics.txt");
+    	assertNotNull(sorty.getKey(0));
+    }
+    
+    public void testGetInputKey() throws IOException
+    {
+    	Sorter sorty = new Sorter("8block", "statistics.txt");
+    	assertNotNull(sorty.getInputKey(0));
+    }
+    
+    public void testGetOutputKey() throws IOException
+    {
+    	Sorter sorty = new Sorter("8block", "statistics.txt");
+    	assertNotNull(sorty.getOutputKey(0));
+    }
 }

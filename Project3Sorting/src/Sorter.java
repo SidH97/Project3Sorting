@@ -192,7 +192,7 @@ public class Sorter
      *            in heapBuffer
      * @return key
      */
-    private float getKey(int index)
+    public float getKey(int index)
     {
         // adds four to get the second half of record
         return heapBuffer.getFloat(index + 4);
@@ -205,7 +205,7 @@ public class Sorter
      *            of the parent you're trying to find
      * @return index of the parent
      */
-    private int parentIndex(int indexChild)
+    public int parentIndex(int indexChild)
     {
         return ((indexChild - 1) / 2);
     }
@@ -225,7 +225,7 @@ public class Sorter
      *            in inputBuffer
      * @return key
      */
-    private float getInputKey(int index)
+    public float getInputKey(int index)
     {
         return inBuffer.getFloat(index + 4);
     }
@@ -237,7 +237,7 @@ public class Sorter
      *            in outputBuffer
      * @return key
      */
-    private float getOutputKey(int index)
+    public float getOutputKey(int index)
     {
         return outBuffer.getFloat(index + 4);
     }
