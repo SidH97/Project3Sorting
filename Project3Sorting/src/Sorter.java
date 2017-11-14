@@ -1,9 +1,11 @@
 /**
  * 
  */
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -52,7 +54,20 @@ public class Sorter
         inputIndex = 0;
         outputIndex = 0;
         frontIndex = 0;
+        long timer1 = System.currentTimeMillis();
         newReplacementSelection();
+        long timer2 = System.currentTimeMillis();
+        long runTime = timer2 - timer1;
+        
+      //Here true is to append the content to file
+    	FileWriter fw = new FileWriter(new File(stats),true);
+    	//BufferedWriter writer give better performance
+    	BufferedWriter bw = new BufferedWriter(fw);
+    	bw.write(records + " " + Long.toString(runTime));
+    	//Closing BufferedWriter Stream
+    	bw.close();
+       
+        
         runFile = new File(records);
         runFile.delete();
         runFile = new File(records);
