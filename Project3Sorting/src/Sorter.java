@@ -39,6 +39,12 @@ public class Sorter
     RandomAccessFile file;
     FileChannel wChannel;
 
+    /**
+     * Constructor
+     * @param records file written to with run(s)
+     * @param stats file about timing
+     * @throws IOException
+     */
     @SuppressWarnings("resource")
 	Sorter(String records, String stats) throws IOException
     {
@@ -77,21 +83,31 @@ public class Sorter
 			wChannel.close();
 		}
 
-    //this is changed
+    /**
+     * removes a record from the index
+     * @param index of record to be removed
+     * @return record
+     */
     private long removeInputBuffer(int index)
     {
         inputIndex++;
         return inBuffer.getLong((index * 8));
     }
 
-    //this has been changed
+    /**
+     * adds record top front of input buffer
+     * @param l record to be re-added to input buffer
+     */
     private void insertInputBuffer(long l)
     {
         inBuffer.putLong((frontIndex * 8), l);
         frontIndex++;
     }
 
-    //this needs to change
+    /**
+     * clears out the input buffer of all re-added records
+     * adds them to heap
+     */
     private void cleanInputBuffer()
     {
         for (int i = frontIndex; i >= 0; i--)
@@ -102,13 +118,20 @@ public class Sorter
         frontIndex = 0;
     }
 
-    //this does not need to be changed
+    /**
+     * checks input index, can still have records in the buffer
+     * @return true if outside of index
+     */
     private boolean isInputEmpty()
     {
         return inputIndex == 512;
     }
 
-    //this has been changed
+    /**
+     * inserts record to the output buffer 
+     * if the output buffer it calls sendOutputBuffer()
+     * @param l record to add
+     */
     private void insertOutputBuffer(long l)
     {
         outBuffer.putLong((outputIndex * 8), l);
@@ -119,6 +142,9 @@ public class Sorter
         }
     }
 
+    /**
+     * sends output buffer to file
+     */
     private void sendOutputBuffer()
     {
         outputIndex = 0;
@@ -130,7 +156,10 @@ public class Sorter
         outBuffer.clear();
     }
 
-    //this should be changed to work
+    /**
+     * creates a minheap out of the heap
+     * @param index to start the minheap
+     */
     private void minHeapify(int index)
     {
         long hold = heapBuffer.getLong(index);
@@ -144,34 +173,59 @@ public class Sorter
         heapBuffer.putLong((index*8), hold);
     }
     
-    //gets the 4 bytes of the key
+    /**
+     * returns the key of the record in the heap buffer at the index
+     * @param index in heapBuffer
+     * @return key
+     */
     private float getKey(int index)
     {
     	//adds four to get the second half of record
     	return heapBuffer.getFloat(index + 4);
     }
 
-    //This is based on the 512 index so this will work
+    /**
+     * wrks on a 512 indexing
+     * @param indexChild of the parent you're trying to find
+     * @return index of the parent
+     */
     private int parentIndex(int indexChild)
     {
         return ((indexChild - 1) / 2);
     }
 
+    /**
+     * calls minHeap(0)
+     */
     private void heapify()
     {
         minHeapify(0);
     }
 
+    /**
+     * returns the key of the record in the input buffer at the index
+     * @param index in inputBuffer
+     * @return key
+     */
     private float getInputKey(int index)
     {
     	return inBuffer.getFloat(index + 4);
     }
     
+    /**
+     * returns the key of the record in the output buffer at the index
+     * @param index in outputBuffer
+     * @return key
+     */
     private float getOutputKey(int index)
     {
     	return outBuffer.getFloat(index+ 4);
     }
     
+    /**
+     * fills in the heap
+     * @return true if works
+     */
     private boolean getNewHeap()
     {
     	try {
@@ -191,6 +245,9 @@ public class Sorter
 		
     }
     
+    /**
+     * clears the heap
+     */
     private void sendHeap()
     {
         try {
@@ -201,6 +258,11 @@ public class Sorter
         heapBuffer.clear();
     }
     
+    /**
+     * outputs the first record of each block to system out
+     * @param file to output to
+     * @throws IOException well it does
+     */
     private void sysOut(String file) throws IOException
     {
 		RandomAccessFile tempFile = new RandomAccessFile(file, "r");
@@ -222,6 +284,11 @@ public class Sorter
     	
     }
     
+    /**
+     * calls sysOut()
+     * @param recordId half of the record
+     * @param key half of the record
+     */
     private void sendToSysOut(int recordId, float key)
     {
     	if ((ct != 0) && (ct % 5 == 0))
@@ -232,6 +299,9 @@ public class Sorter
     	ct++;
     }
     
+    /**
+     * helper method for replacementSelection()
+     */
     public void newReplacementSelection()
     {
     	run = 0;
@@ -243,6 +313,9 @@ public class Sorter
     	}
     }
     
+    /**
+     * out implementation of replacement sort selection
+     */
     public void replacementSelection()
     {
         while (fileInCheck != -1)
@@ -279,7 +352,9 @@ public class Sorter
         
     }
 
-    
+    /**
+     * clears the heap
+     */
     private void clearHeap()
     {
     	heapify();
@@ -291,6 +366,9 @@ public class Sorter
         }
     }
     
+    /**
+     * gets new full input buffer
+     */
     private void getNewInput()
     {
     	try 
@@ -304,6 +382,14 @@ public class Sorter
 		}
     }
     
+    /**
+     * gets the next block(s) for merge sort
+     * @param index in heap
+     * @param size number of records pulled each time
+     * @param runNum to keep track of runs
+     * @param depth number calls
+     * @return true if able to fill request
+     */
     private boolean nextInput(int index, int size, int runNum, int depth)
     {
     	try 
@@ -329,6 +415,9 @@ public class Sorter
     	
     }
     
+    /**
+     * our implementation of merge sort
+     */
     public void mergeSort()
     {
     	if (run == 1) {
@@ -398,6 +487,10 @@ public class Sorter
     	}
     }
     
+    /**
+     * helper method
+     * @param numRec total numbewr of records in all runs
+     */
     private void merge2(int numRec) 
     {
     	int depth1 = 1;
@@ -451,6 +544,10 @@ public class Sorter
     	}
     }
     
+    /**
+     * helper method
+     * @param numRec total numbewr of records in all runs
+     */
     private void merge3(int numRec)
     {
     	int depth1 = 1;
@@ -524,7 +621,10 @@ public class Sorter
     	}
     }
 
-    
+    /**
+     * helper method
+     * @param numRec total numbewr of records in all runs
+     */
     private void merge4(int numRec)
     {
     	int depth1 = 1;
@@ -623,6 +723,10 @@ public class Sorter
     	}
     }
     
+    /**
+     * helper method
+     * @param numRec total numbewr of records in all runs
+     */
     private void merge5(int numRec)
     {
     	int depth1 = 1;
@@ -746,6 +850,10 @@ public class Sorter
 
     }
     
+    /**
+     * helper method
+     * @param numRec total numbewr of records in all runs
+     */
     private void merge6(int numRec)
     {
     	int depth1 = 1;
@@ -898,6 +1006,10 @@ public class Sorter
 
     }
     
+    /**
+     * helper method
+     * @param numRec total numbewr of records in all runs
+     */
     private void merge7(int numRec)
     {
     	int depth1 = 1;
@@ -1080,7 +1192,10 @@ public class Sorter
 
     }
 
-    
+    /**
+     * helper method
+     * @param numRec total numbewr of records in all runs
+     */
     private void merge8(int numRec)
     {
     	int depth1 = 1;
