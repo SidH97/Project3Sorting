@@ -288,8 +288,7 @@ public class Sorter
     /**
      * outputs the first record of each block to system out
      * 
-     * @param file
-     *            to output to
+     * @param file to output to
      * @throws IOException
      *             well it does
      */
