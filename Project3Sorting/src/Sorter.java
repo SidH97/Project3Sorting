@@ -80,7 +80,7 @@ public class Sorter
         wChannel = new FileOutputStream(runFile, true).getChannel();
         mergeSort();
         sysOut(records);
-			wChannel.close();
+	    wChannel.close();
 		}
 
     /**
@@ -349,7 +349,7 @@ public class Sorter
 					System.out.println(e.toString());
 				}
             }
-            
+            i++;
         }
         return 1;
         
