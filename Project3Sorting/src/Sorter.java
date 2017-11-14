@@ -361,7 +361,7 @@ public class Sorter
     	else if (run == 7) {
     		//load into heapBuffer
         	nextInput(0, 512, 1, 0);
-    		nextInput(512, 512, 2, 0;);
+    		nextInput(512, 512, 2, 0);
     		nextInput(1024, 512, 3, 0);
     		nextInput(1536, 512, 4, 0);
     		nextInput(2048, 512, 5, 0);
