@@ -11,19 +11,15 @@ import junit.framework.TestCase;
  *
  */
 public class SorterTest extends TestCase{
-	Sorter sorter;
 	public void setUp()
 	{
-		try {
-			sorter = new Sorter("8block.bin", "stats.txt");
-		} catch (IOException e) {
-			System.out.println("nice try");
-		}
+		//purposly lefty blsnk
 	}
 	
-	public void testReplacementSelection()
+	public void testReplacementSelection() throws IOException
 	{
-		assertTrue(sorter.replacementSelection() == 1);
+		Sorter sorty = new Sorter("8block", "statistics.txt");
+		assertNotNull(sorty);
 	}
 
 }

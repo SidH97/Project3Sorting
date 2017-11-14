@@ -319,7 +319,8 @@ public class Sorter
      */
     public int replacementSelection()
     {
-        while (fileInCheck != -1)
+    	int i = 0;
+        while (i != 0)
         {
             while (!isInputEmpty())
             {
@@ -415,6 +416,14 @@ public class Sorter
 		}
     	return false;
     	
+    }
+    
+    /**
+     * @return 1
+     */
+    public int return1()
+    {
+    	return 1;
     }
     
     /**
