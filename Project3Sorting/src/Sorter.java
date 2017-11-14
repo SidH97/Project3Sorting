@@ -300,8 +300,9 @@ public class Sorter
     
     /**
      * out implementation of replacement sort selection
+     * @return 1
      */
-    public void replacementSelection()
+    public int replacementSelection()
     {
         while (fileInCheck != -1)
         {
@@ -334,6 +335,7 @@ public class Sorter
             }
             
         }
+        return 1;
         
     }
 
