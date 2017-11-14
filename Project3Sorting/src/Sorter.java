@@ -350,11 +350,23 @@ public class Sorter
     	}
     	else if (run == 6) {
     		//load into heapBuffer
-    		
+        	nextInput(0,1024, 1, 0);
+        	nextInput(1024, 1024, 2, 0);
+        	nextInput(2048, 512, 3, 0);
+        	nextInput(2560, 512, 4, 0);
+        	nextInput(3072, 512, 5, 0);
+        	nextInput(3584, 512, 6, 0);
     		merge6(run * 4096);
     	}
     	else if (run == 7) {
     		//load into heapBuffer
+        	nextInput(0, 512, 1, 0);
+    		nextInput(512, 512, 2, 0;);
+    		nextInput(1024, 512, 3, 0);
+    		nextInput(1536, 512, 4, 0);
+    		nextInput(2048, 512, 5, 0);
+    		nextInput(2560, 512, 6, 0);
+    		nextInput(3072, 1024, 7, 0);
     		merge7(run * 4096);
     	}
     	else if (run == 8) {
