@@ -634,7 +634,7 @@ public class Sorter
 
     /**
      * helper method
-     * @param numRec total numbewr of records in all runs
+     * @param numRec total number of records in all runs
      */
     private void merge4(int numRec)
     {
