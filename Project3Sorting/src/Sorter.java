@@ -29,6 +29,7 @@ public class Sorter
     private int frontIndex;
     private int fileInCheck;
     private int run;
+    private int test = 0;
     private int ct = 0;
     ByteBuffer inBuffer;
     ByteBuffer outBuffer;
@@ -288,9 +289,31 @@ public class Sorter
 		}
     }
     
-    private boolean nextInput(int index, int size, int runNum)
+    private boolean nextInput(int index, int size, int runNum, int depth)
     {
+    	try 
+    	{
+        	RandomAccessFile newFile = new RandomAccessFile("run.txt", "r");
+    		index = index + (runNum * 4096);
+    		long spot = (((runNum * 32768) - 32768) + ((depth * 512) - 512));
+    		newFile.seek(spot);
+			test = newFile.read(heap, index, size);
+			inBuffer = ByteBuffer.wrap(in);
+			if (test == -1)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		} 
+    	catch (IOException e) 
+    	{
+			System.out.println(e.toString());
+		}
     	return false;
+    	
     }
     
     public void mergeSort()
