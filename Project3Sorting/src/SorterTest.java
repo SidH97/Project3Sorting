@@ -22,5 +22,13 @@ public class SorterTest extends TestCase{
 		assertNotNull(sorty);
 		assertEquals(1, sorty.replacementSelection());
 	}
+	
+	public void testNewReplacementSelection1() throws IOException
+	{
+		Sorter sorty = new Sorter("8block", "statistics.txt");
+		sorty.newReplacementSelection();
+		assertNotNull(sorty);
+	}
+
 
 }
