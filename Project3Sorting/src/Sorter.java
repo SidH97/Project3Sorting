@@ -207,7 +207,7 @@ public class Sorter
      *            of the parent you're trying to find
      * @return index of the parent
      */
-    private int parentIndex(int indexChild)
+    public int parentIndex(int indexChild)
     {
         return ((indexChild - 1) / 2);
     }

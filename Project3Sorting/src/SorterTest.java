@@ -48,5 +48,11 @@ public class SorterTest extends TestCase
         sorty.mergeSort();
         assertNotNull(sorty);
     }
+    
+    public void testParentInde() throws IOException
+    {
+    	Sorter sorty = new Sorter("8block", "statistics.txt");
+    	assertEquals(1,sorty.parentIndex(3));
+    }
 
 }
