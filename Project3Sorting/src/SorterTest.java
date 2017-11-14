@@ -2,7 +2,8 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
-/**Test class for sorter
+/**
+ * Test class for sorter
  * 
  * @author sid97
  * @author matce93
@@ -11,11 +12,20 @@ import junit.framework.TestCase;
  */
 public class SorterTest extends TestCase
 {
+    /**
+     * here is the set up.
+     */
     public void setUp()
     {
         // Purposely left blank
     }
 
+    /**
+     * This method will test outputkey
+     * 
+     * @throws IOException
+     *             exception
+     */
     public void testReplacementSelection() throws IOException
     {
         Sorter sorty = new Sorter("8block", "statistics.txt");
@@ -23,6 +33,12 @@ public class SorterTest extends TestCase
         assertEquals(1, sorty.replacementSelection());
     }
 
+    /**
+     * This method will test outputkey
+     * 
+     * @throws IOException
+     *             exception
+     */
     public void testNewReplacementSelection1() throws IOException
     {
         Sorter sorty = new Sorter("8block", "statistics.txt");
@@ -47,28 +63,52 @@ public class SorterTest extends TestCase
         sorty.mergeSort();
         assertNotNull(sorty);
     }
-    
+
+    /**
+     * This method will test outputkey
+     * 
+     * @throws IOException
+     *             exception
+     */
     public void testParentInde() throws IOException
     {
-    	Sorter sorty = new Sorter("8block", "statistics.txt");
-    	assertEquals(1,sorty.parentIndex(3));
+        Sorter sorty = new Sorter("8block", "statistics.txt");
+        assertEquals(1, sorty.parentIndex(3));
     }
 
+    /**
+     * This method will test outputkey
+     * 
+     * @throws IOException
+     *             exception
+     */
     public void testGetKey() throws IOException
     {
-    	Sorter sorty = new Sorter("8block", "statistics.txt");
-    	assertNotNull(sorty.getKey(0));
+        Sorter sorty = new Sorter("8block", "statistics.txt");
+        assertNotNull(sorty.getKey(0));
     }
-    
+
+    /**
+     * This method will test outputkey
+     * 
+     * @throws IOException
+     *             exception
+     */
     public void testGetInputKey() throws IOException
     {
-    	Sorter sorty = new Sorter("8block", "statistics.txt");
-    	assertNotNull(sorty.getInputKey(0));
+        Sorter sorty = new Sorter("8block", "statistics.txt");
+        assertNotNull(sorty.getInputKey(0));
     }
-    
+
+    /**
+     * This method will test outputkey
+     * 
+     * @throws IOException
+     *             exception
+     */
     public void testGetOutputKey() throws IOException
     {
-    	Sorter sorty = new Sorter("8block", "statistics.txt");
-    	assertNotNull(sorty.getOutputKey(0));
+        Sorter sorty = new Sorter("8block", "statistics.txt");
+        assertNotNull(sorty.getOutputKey(0));
     }
 }
