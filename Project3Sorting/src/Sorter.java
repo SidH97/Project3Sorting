@@ -29,6 +29,7 @@ public class Sorter
     private int frontIndex;
     private int fileInCheck;
     private int run;
+    private int test = 0;
     private int ct = 0;
     ByteBuffer inBuffer;
     ByteBuffer outBuffer;
@@ -212,7 +213,7 @@ public class Sorter
     	{
     		System.out.println();
     	}
-    	System.out.print(recordId + " " + key);
+    	System.out.print(recordId + " " + key + " ");
     	ct++;
     }
     
@@ -288,9 +289,29 @@ public class Sorter
 		}
     }
     
-    private boolean nextInput(int index, int size, int runNum)
+    private boolean nextInput(int index, int size, int runNum, int depth)
     {
+    	try 
+    	{
+        	RandomAccessFile newFile = new RandomAccessFile("run.txt", "r");
+    		long spot = size * depth;
+    		newFile.seek(spot);
+			test = newFile.read(heap, index, size);
+			if (test == -1)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		} 
+    	catch (IOException e) 
+    	{
+			System.out.println(e.toString());
+		}
     	return false;
+    	
     }
     
     public void mergeSort()
@@ -351,7 +372,7 @@ public class Sorter
     	else if (run == 8) {
     		//load into merge8
     		nextInput(0, 512, 1, 0);
-    		nextInput(512, 512, 2, 0;);
+    		nextInput(512, 512, 2, 0);
     		nextInput(1024, 512, 3, 0);
     		nextInput(1536, 512, 4, 0);
     		nextInput(2048, 512, 5, 0);
@@ -763,7 +784,7 @@ public class Sorter
         			x2++;
         			if (x2 == hold3) {
         				//needs to get the next input and put it at the beginning (hold2)
-        				if(nextInput(hold2, 1024, 2, dpeth2))
+        				if(nextInput(hold2, 1024, 2, depth2))
         				{
         					x2 = hold2;
         					depth2++;
