@@ -16,12 +16,12 @@ public class SorterTest extends TestCase{
 		//purposly lefty blsnk
 	}
 	
-	public void testReplacementSelection() throws IOException
-	{
-		Sorter sorty = new Sorter("8block", "statistics.txt");
-		assertNotNull(sorty);
-		assertEquals(1, sorty.replacementSelection());
-	}
+//	public void testReplacementSelection() throws IOException
+//	{
+//		Sorter sorty = new Sorter("8block", "statistics.txt");
+//		assertNotNull(sorty);
+//		assertEquals(1, sorty.replacementSelection());
+//	}
 	
 	public void testNewReplacementSelection1() throws IOException
 	{

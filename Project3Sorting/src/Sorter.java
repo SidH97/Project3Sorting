@@ -94,29 +94,29 @@ public class Sorter
         return inBuffer.getLong((index * 8));
     }
 
-    /**
-     * adds record top front of input buffer
-     * @param l record to be re-added to input buffer
-     */
-    private void insertInputBuffer(long l)
-    {
-        inBuffer.putLong((frontIndex * 8), l);
-        frontIndex++;
-    }
+//    /**
+//     * adds record top front of input buffer
+//     * @param l record to be re-added to input buffer
+//     */
+//    private void insertInputBuffer(long l)
+//    {
+//        inBuffer.putLong((frontIndex * 8), l);
+//        frontIndex++;
+//    }
 
-    /**
-     * clears out the input buffer of all re-added records
-     * adds them to heap
-     */
-    private void cleanInputBuffer()
-    {
-        for (int i = frontIndex; i >= 0; i--)
-        {
-        	heapBuffer.putLong(((511 - i) * 8), removeInputBuffer(i));
-        }
-        heapify();
-        frontIndex = 0;
-    }
+//    /**
+//     * clears out the input buffer of all re-added records
+//     * adds them to heap
+//     */
+//    private void cleanInputBuffer()
+//    {
+//        for (int i = frontIndex; i >= 0; i--)
+//        {
+//        	heapBuffer.putLong(((511 - i) * 8), removeInputBuffer(i));
+//        }
+//        heapify();
+//        frontIndex = 0;
+//    }
 
     /**
      * checks input index, can still have records in the buffer
@@ -313,61 +313,61 @@ public class Sorter
     	}
     }
     
-    /**
-     * out implementation of replacement sort selection
-     * @return 1
-     */
-    public int replacementSelection()
-    {
-    	int i = 0;
-        while (i != 1)
-        {
-            while (!isInputEmpty())
-            {
-                heapify();
-                insertOutputBuffer(heapBuffer.getLong(0));
-                float key = getInputKey(inputIndex);
-                long hold = removeInputBuffer(inputIndex);
-                if (key < getOutputKey(outputIndex - 1))
-                {
-                    insertInputBuffer(hold);
-                }
-                else
-                {
-                    heapBuffer.putLong(0, hold);
-                }
-            }
-            if (frontIndex == 0)
-            {
-            	getNewInput();
-            } else {
-            	clearHeap();
-            	cleanInputBuffer();
-            	try {
-					file.read(heap);
-				} catch (IOException e) {
-					System.out.println(e.toString());
-				}
-            }
-            i++;
-        }
-        return 1;
-        
-    }
+//    /**
+//     * out implementation of replacement sort selection
+//     * @return 1
+//     */
+//    public int replacementSelection()
+//    {
+//    	int i = 0;
+//        while (i != 1)
+//        {
+//            while (!isInputEmpty())
+//            {
+//                heapify();
+//                insertOutputBuffer(heapBuffer.getLong(0));
+//                float key = getInputKey(inputIndex);
+//                long hold = removeInputBuffer(inputIndex);
+//                if (key < getOutputKey(outputIndex - 1))
+//                {
+//                    insertInputBuffer(hold);
+//                }
+//                else
+//                {
+//                    heapBuffer.putLong(0, hold);
+//                }
+//            }
+//            if (frontIndex == 0)
+//            {
+//            	getNewInput();
+//            } else {
+//            	clearHeap();
+//            	cleanInputBuffer();
+//            	try {
+//					file.read(heap);
+//				} catch (IOException e) {
+//					System.out.println(e.toString());
+//				}
+//            }
+//            i++;
+//        }
+//        return 1;
+//        
+//    }
 
-    /**
-     * clears the heap
-     */
-    private void clearHeap()
-    {
-    	heapify();
-        int i = 0;
-        while (i < 4092)
-        {
-            insertOutputBuffer(heapBuffer.getLong(i * 8));
-            i++;
-        }
-    }
+//    /**
+//     * clears the heap
+//     */
+//    private void clearHeap()
+//    {
+//    	heapify();
+//        int i = 0;
+//        while (i < 4092)
+//        {
+//            insertOutputBuffer(heapBuffer.getLong(i * 8));
+//            i++;
+//        }
+//    }
     
     /**
      * gets new full input buffer
@@ -418,13 +418,13 @@ public class Sorter
     	
     }
     
-    /**
-     * @return 1
-     */
-    public int return1()
-    {
-    	return 1;
-    }
+//    /**
+//     * @return 1
+//     */
+//    public int return1()
+//    {
+//    	return 1;
+//    }
     
     /**
      * our implementation of merge sort
