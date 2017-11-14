@@ -5,7 +5,7 @@ import java.io.IOException;
  * @author Sid97
  * @version 11/13
  */
-public class Heapsort
+public class heapsort
 {
      /**
      * main class
