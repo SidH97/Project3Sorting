@@ -3,13 +3,14 @@ import java.io.IOException;
  * this is our main class
  * @author Matthew Evans
  * @author Sid97
+ * @version 11/13
  */
 public class heapsort
 {
-	/**
-	 * main class
-	 * @param args should be two
-	 */
+     /**
+     * main class
+     * @param args should be two
+     */
     public static void main(String[] args)
     {
         try
@@ -21,5 +22,4 @@ public class heapsort
             System.out.println(e.toString());
         }
     }
-
 }
